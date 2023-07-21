@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件访问：子组件访问父组件/根组件</title>
+</head>
+<body>
+<div id="app">
+  <h2>我是根组件</h2>
+  <cpn18></cpn18>
+</div>
+
+<template id="cpn18">
+  <div>
+    <h3>我是父组件</h3>
+    <cpn19></cpn19>
+  </div>
+</template>
+
+<template id="cpn19">
+  <div>
+    <p>我是子组件</p>
+    <button @click="btnClick">按钮</button>
+  </div>
+
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      name: "我是根组件的 name"
+    },
+    methods: {},
+    components: {
+      cpn18: {
+        template: "#cpn18",
+        data() {
+          return {
+            name: "我是父组件的 name"
+          };
+        },
+        components: {
+          cpn19: {
+            template: "#cpn19",
+            methods:{
+              btnClick(){
+                // 1 使用 $parent 访问父组件
+                // console.log(this.$parent);
+                // console.log(this.$parent.name);
+
+                // 2 使用 $root 访问根组件
+                console.log(this.$root);
+                console.log(this.$root.name);
+              }
+            }
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

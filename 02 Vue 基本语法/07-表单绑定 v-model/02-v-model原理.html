@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-model 原理</title>
+</head>
+<body>
+<div id="app">
+
+  <!--1 动态绑定 value，输入框可以实时获取这里的数据-->
+  <!--<input type="text" :value="message">-->
+
+  <!--2 绑定事件 input，可以实时获取输入框的信息，更新数据-->
+  <!--<input type="text" :value="message" @input="valueChange">-->
+  <!--以上可以直接省去 methods，写成如下样式 -->
+  <!--<input type="text" :value="message" @input="$event.target.value">-->
+
+  <!--3 Vue 提供 v-model 实现数据与表单输入的双向绑定-->
+  <input type="text" v-model="message">
+  {{message}}
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: "你好啊"
+    },
+    // methods: {
+    //   valueChange(event){ // 通过浏览器生成的 event 事件对象，去获取目标 value
+    //     this.message=event.target.value;
+    //   }
+    // }
+  });
+</script>
+</body>
+</html>

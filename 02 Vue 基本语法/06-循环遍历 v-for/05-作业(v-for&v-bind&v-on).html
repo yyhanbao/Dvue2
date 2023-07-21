@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for & v-bind & v-on 结合使用</title>
+  <style>
+    .active {
+      font-size: 20px;
+      color: lightblue;
+    }
+  </style>
+</head>
+<body>
+
+<!--作业需求: 默认第一条的文字是蓝色的，之后点击列表中的哪一项, 那么该项的文字变成蓝色-->
+<div id="app">
+  <ul>
+    <li v-for="(item,index) in movies" :key="item" :class="{active: currentIndex === index}" @click="liClick(index)">
+      {{item}}
+    </li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      movies: ["海王", "海尔兄弟", "火影忍者", "进击的巨人"],
+      currentIndex: 0, // 当前点击元素
+    },
+    methods: {
+      liClick(index) {
+        return this.currentIndex = index;
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

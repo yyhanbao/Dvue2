@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件通信：父组件向子组件传递数据</title>
+</head>
+<body>
+<!--父组件模板-->
+<div id="app">
+  <!--父组件将数据传递给子组件-->
+  <cpn11 :cfruits="fruits" :cmessage="message"></cpn11>
+</div>
+
+<!--子组件模板-->
+<template id="cpn11">
+  <div>
+    <ul>
+      <li v-for="fruit in cfruits">{{fruit}}</li>
+    </ul>
+    <p>{{cmessage}}</p>
+  </div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  // 子组件
+  const cpn11 = { // 子组件中通过 props 获取父组件数据
+    template: "#cpn11",
+
+    // 方式一：数组写法
+    // props: ["cfruits", "cmessage"],
+
+    // 方式二：限制类型写法
+    // props: {
+    //   cfruits: Array,
+    //   cmessage: String
+    // },
+
+    // 方式三：提供默认值，设置数据类型、必传值
+    // 注意：数据类型为对象或数组时，默认值必须是一个函数
+    props: {
+      cfruits: {
+        type: Array,
+        default() {
+          return [];
+        },
+        required: true,
+      },
+      cmessage: {
+        type: String,
+        default: "是憨憨啊",
+        required: true,
+      }
+    }
+  };
+
+  // 父组件
+  const app = new Vue({
+    el: "#app",
+    data: {
+      // 父组件中的数据
+      message: "你好啊",
+      fruits: ["桃子", "香蕉", "火龙果", "哈密瓜"]
+    },
+    components: {
+      cpn11
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 注册组件（全局 & 局部）</title>
+</head>
+<body>
+<!--3 使用组件-->
+<div id="app">
+  <cpn1></cpn1>
+  <cpn2></cpn2>
+  <div>
+    <cpn1></cpn1>
+    <cpn2></cpn2>
+  </div>
+</div>
+
+<div id="app2">
+  <cpn1></cpn1>
+  <cpn2></cpn2>
+  <div>
+    <cpn1></cpn1>
+    <cpn2></cpn2>
+  </div>
+</div>
+
+<cpn1></cpn1>
+<cpn2></cpn2>
+
+<script src="./js/vue.js"></script>
+<script>
+  // 1 创建组件构造器（对象）
+  const cpnC1 = Vue.extend({
+    template: `
+    <div>
+      <h2>我是标题</h2>
+      <p>我是憨憨，嘿嘿嘿嘿嘿嘿嘿嘿</p>
+    </div>
+    `
+  });
+  const cpnC2 = Vue.extend({
+    template: `
+    <div>
+      <h2>我是标题</h2>
+      <p>我是傻傻，呵呵呵呵呵呵呵呵</p>
+    </div>
+    `
+  });
+
+  // 2-1 注册组件：全局组件, 可以在多个 Vue 的实例下面使用
+  Vue.component("cpn1", cpnC1);
+
+  const app = new Vue({
+    el: "#app",
+    components: {
+      // 2-2 注册组件：局部组件, 只能在这个 Vue 的实例下面使用
+      cpn2: cpnC2
+    }
+  });
+
+  const app2 = new Vue({
+    el: "#app2"
+  });
+
+</script>
+</body>
+</html>

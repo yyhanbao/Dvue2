@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slot 具名插槽使用</title>
+</head>
+<body>
+<div id="app">
+  <cpn20>
+    <button slot="left">返回</button>
+    <input type="text" slot="center" placeholder="请输入搜索内容..."/>
+    <button slot="right">更多</button>
+  </cpn20>
+</div>
+
+<template id="cpn20">
+  <div>
+    <slot name="left"><span>左边</span></slot>
+    <slot name="center"><span>中间</span></slot>
+    <slot name="right"><span>右边</span></slot>
+  </div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    components: {
+      cpn20: {
+        template: "#cpn20"
+      }
+    }
+  });
+</script>
+</body>
+</html>

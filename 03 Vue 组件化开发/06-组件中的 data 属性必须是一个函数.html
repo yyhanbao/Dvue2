@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>验证组件中 data 属性必须是一个函数</title>
+</head>
+<body>
+<div id="app">
+  <cpn10></cpn10>
+  <cpn10></cpn10>
+  <cpn10></cpn10>
+</div>
+
+<template id="cpn10">
+  <div>
+    <h2>当前计数：{{counter}}</h2>
+    <button @click="increment">+</button>
+    <button @click="decrement">-</button>
+  </div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  // const obj = {counter: 0};
+
+  Vue.component("cpn10", {
+    template: "#cpn10",
+    data() {
+      // 存放在组件内的 data 属性里，这个 data 属性必须是一个函数，且函数返回一个对象
+      return { // 这里每次返回的是新的对象
+        counter: 0
+      };
+    },
+    // data() {
+    //   return obj; // 这里指向的是 obj 这个对象
+    // },
+    methods: {
+      increment() {
+        this.counter++;
+      },
+      decrement() {
+        this.counter--;
+      }
+    }
+  });
+
+  const app = new Vue({
+    el: "#app"
+  });
+</script>
+</body>
+</html>

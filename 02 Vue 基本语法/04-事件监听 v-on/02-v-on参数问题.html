@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-on 参数问题</title>
+</head>
+<body>
+<div id="app">
+  <!--1 当事件调用的方法无需参数时，这里写不写小括号都可以-->
+  <button @click="btn1Click">按钮 1</button>
+  <button @click="btn1Click()">按钮 1</button>
+
+  <!--2-1 当事件调用的方法需要参数，这里却没写小括号时，Vue 会传入浏览器生成的 event 事件对象-->
+  <button @click="btn2Click">按钮 2</button>
+  <!--2-2 当事件调用的方法需要参数，这里却没写参数时，Vue 会传入 undefined-->
+  <button @click="btn2Click()">按钮 2</button>
+  <!--2-2 当事件调用的方法需要参数，这里写了参数时，Vue 会传入该参数-->
+  <button @click="btn2Click(123)">按钮 2</button>
+
+  <!--3 当事件调用的方法需要参数，且我们希望同时传入 event 对象和其它参数时，使用 $event 手动获取 event 对象-->
+  <button @click="btn3Click(abc,$event)">按钮 3</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      abc: 123
+    },
+    methods: {
+      btn1Click() {
+        console.log("按钮 1 被点击了");
+      },
+      btn2Click(event) {
+        console.log("按钮 2 被点击了", event);
+      },
+      btn3Click(abc, event) { // abc 不是字符串类型，这里是个变量
+        console.log("按钮 3 被点击了", abc, event);
+      }
+    }
+  });
+
+  // 如果函数需要参数，却没有传参数，那么函数的形参为 undefined
+  // function abc(name) {
+  //   console.log(name);
+  // }
+  //
+  // abc(); // undefined
+</script>
+</body>
+</html>

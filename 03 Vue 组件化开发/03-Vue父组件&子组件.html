@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 父组件 & 子组件</title>
+</head>
+<body>
+<div id="app">
+  <cpn5></cpn5>
+  <cpn6></cpn6>
+</div>
+
+<script src="./js/vue.js"></script>
+<script>
+  // 必须先创建子组件构造器，否则父组件无法使用子组件
+  // 创建第二个组件构造器(子组件)
+  const cpnC6 = Vue.extend({
+    template: `
+    <div>
+      <h2>我是标题</h2>
+      <p>我是傻傻，呵呵呵呵呵呵呵呵</p>
+    </div>
+    `
+  });
+
+  // 创建第一个组件构造器(父组件)
+  const cpnC5 = Vue.extend({
+    template: `
+      <div>
+      <h2>我是标题</h2>
+      <p>我是憨憨，嘿嘿嘿嘿嘿嘿嘿嘿</p>
+      <cpn6></cpn6>
+      </div>
+    `,
+    components: {
+      cpn6: cpnC6
+    }
+  });
+
+  // root 根组件
+  const app = new Vue({
+    el: "#app",
+    components: {
+      cpn5: cpnC5
+    }
+  });
+
+</script>
+</body>
+</html>

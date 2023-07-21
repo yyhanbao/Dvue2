@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 中响应式数组方法列举</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="item in letters">{{item}}</li>
+  </ul>
+  <button @click="btn1Click">unshift</button>
+  <button @click="btn2Click">push</button>
+  <button @click="btn3Click">shift</button>
+  <button @click="btn4Click">pop</button>
+  <button @click="btn5Click">splice 1</button>
+  <button @click="btn6Click">splice 2</button>
+  <button @click="btn7Click">splice 3</button>
+  <button @click="btn8Click">reverse</button>
+  <button @click="btn9Click">sort</button>
+  <button @click="btn10Click">index</button>
+  <button @click="btn11Click">set</button>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      letters: ["b", "a", "c", "d"]
+    },
+    methods: {
+      btn1Click() { // 1 unshift()：在数组最前面添加元素，可以添加任意个元素
+        this.letters.unshift("1", "2", "3");
+        console.log("unshift 添加 1 2 3");
+      },
+      btn2Click() { // 2 push()：在数组最后面添加元素，可以添加任意个元素
+        this.letters.push("4", "5", "6");
+        console.log("push 添加 4 5 6");
+      },
+      btn3Click() { // 3 shift()：删除数组中第一个元素
+        this.letters.shift();
+        console.log("a 被删除了");
+      },
+      btn4Click() { // 4 pop()：删除数组中最后一个元素
+        this.letters.pop();
+        console.log("d 被删除了");
+      },
+      btn5Click() { // 5 splice(start,deleteCount)：删除元素
+        this.letters.splice(1, 2);
+        console.log("b c 被删除了");
+      },
+      btn6Click() { // 5 splice(start,0,添加元素)：添加元素
+        this.letters.splice(1, 0, "7", "8", "9");
+        console.log("在 a 后面添加了 7 8 9");
+      },
+      btn7Click() { // 7 splice(start,0,替换元素)：替换元素
+        this.letters.splice(1, 2, "10", "11", "12");
+        console.log("将 b c 被替换为 10 11 12");
+      },
+      btn8Click() { // 8 reverse()：令数组中元素反向排序
+        this.letters.reverse();
+        console.log("abcd => dcba");
+      },
+      btn9Click() { // 9 sort()：令数组中元素按规则排序
+        this.letters.sort();
+        console.log("bacd => abcd");
+      },
+      btn10Click() { // 10 使用 index 替换数组中元素是不可行的
+        this.letters[0] = "憨憨";
+        console.log("使用 index 将 a 替换为憨憨");
+      },
+      btn11Click() { // 11 set(要修改的对象, 索引值, 修改后的值)，使用 Vue 内置的 set 方法替换元素
+        Vue.set(this.letters, 0, "憨憨");
+        console.log("将 a 替换为憨憨");
+      }
+    }
+  });
+</script>
+</body>
+</html>

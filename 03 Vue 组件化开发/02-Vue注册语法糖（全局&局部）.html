@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue 注册语法糖（全局 & 局部）</title>
+</head>
+<body>
+<div id="app">
+  <cpn3></cpn3>
+  <cpn4></cpn4>
+  <div>
+    <cpn3></cpn3>
+    <cpn4></cpn4>
+  </div>
+</div>
+
+<div id="app2">
+  <cpn3></cpn3>
+  <cpn4></cpn4>
+  <div>
+    <cpn3></cpn3>
+    <cpn4></cpn4>
+  </div>
+</div>
+
+<cpn3></cpn3>
+<cpn4></cpn4>
+
+<script src="./js/vue.js"></script>
+<script>
+  Vue.component("cpn3", {
+    // 全局注册
+    template: `
+      <div>
+        <h2>我是标题</h2>
+        <p>我是憨憨，嘿嘿嘿嘿嘿嘿嘿嘿</p>
+      </div>
+    `
+  });
+
+  const app = new Vue({
+    el: "#app",
+    components: {
+      cpn4: {
+        // 局部注册
+        template: `
+          <div>
+            <h2>我是标题</h2>
+            <p>我是傻傻，呵呵呵呵呵呵呵呵</p>
+          </div>
+        `
+      }
+    }
+  });
+
+  const app2 = new Vue({
+    el: "#app2"
+  });
+
+</script>
+</body>
+</html>

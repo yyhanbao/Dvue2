@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>var & let & const</title>
+</head>
+<body>
+<button>按钮 1</button>
+<button>按钮 2</button>
+<button>按钮 3</button>
+
+<script>
+  // 变量作用域：变量在什么范围是可用的
+
+  // 1 ES5 中的 var 没有块级作用域，ES6 中新增的 let 有块级作用域
+  // { // var 示例
+  //   var a='aaa';
+  //   console.log(a);
+  // }
+  // console.log(a); // var 没有块级作用域，这里的变量 a 可以被打印出来
+  //
+  // { // let 示例
+  //   let b='bbb';
+  //   console.log(b);
+  // }
+  // console.log(b); // let 有块级作用域，这里的变量 b 是未定义的
+
+  // 2 ES5 中的 var 没有块级作用域引起问题：if & for 没有块级作用域
+  // if 没有块级作用域的问题示例：使用 var，无法按照预期打印出 aaa
+  // var func;
+  // if (true) {
+  //   var a = "aaa";
+  //   func = function () {
+  //     console.log(a);
+  //   };
+  // }
+  // a = "AAA";
+  // func(); // AAA
+  // console.log(a); // AAA
+
+  // 解决上述问题方案一：借助 function（使用闭包），可以按照预期打印出 aaa
+  // var func;
+  // if (true) {
+  //   var a = "aaa";
+  //   func = function () {
+  //     console.log(a);
+  //   }(); // aaa
+  // }
+  // a = "AAA";
+  // console.log(a); // AAA
+
+  // 解决上述问题方案二：使用 let 代替 var，可以按照预期打印出 aaa
+  // var func;
+  // if (true) {
+  //   let a = "aaa";
+  //   func = function () {
+  //     console.log(a);
+  //   };
+  // }
+  // a = "AAA";
+  // func(); // aaa
+  // console.log(a); // AAA
+
+  // for 没有块级作用域的问题示例：使用 var，不能按照预期依次打印
+  // var btns = document.getElementsByTagName("button");
+  // for (var i = 0; i < btns.length; i++) {
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+
+  // 问题分析：因为函数没有被立即执行，等它被三次回调的时候，传入的都是最终符合条件的 i = 2
+  // { // i = 0 => i = 2
+  //   i = 2;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // { // i = 1 => i = 2
+  //   i = 2;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // { // i = 2 => i = 2
+  //   i = 2;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // {
+  //   i = 3;
+  //   // 不符合条件，不执行了，最终符合条件的是 i = 2
+  // }
+
+  // 解决问题的方案一：借助 function（使用闭包），可以按照预期依次打印（因为 function 是一个作用域）
+  // var btns = document.getElementsByTagName("button");
+  // for (var i = 0; i < btns.length; i++) {
+  //   (function (num) { // 0
+  //     btns[i].addEventListener("click", function () {
+  //       console.log("第" + num + "个按钮被点击了");
+  //     });
+  //   })(i);
+  // }
+
+  // 方案一分析：因为这里是立即执行函数，传入的都是当下的 i
+  // {
+  //   (function (num) { // num = i = 0
+  //     btns[i].addEventListener("click", function () {
+  //       console.log("第" + num + "个按钮被点击了");
+  //     });
+  //   })(0);
+  // }
+  //
+  // {
+  //   (function (num) { // num = i = 1
+  //     btns[i].addEventListener("click", function () {
+  //       console.log("第" + num + "个按钮被点击了");
+  //     });
+  //   })(1);
+  // }
+  //
+  // {
+  //   (function (num) { // num = i = 2
+  //     btns[i].addEventListener("click", function () {
+  //       console.log("第" + num + "个按钮被点击了");
+  //     });
+  //   })(2);
+  // }
+  //
+  // {
+  //   i = 3;
+  //   // 不符合条件，不执行了
+  // }
+
+  // 解决问题的方案二：使用 ES6 中的 let 替代 var，可以按照预期依次打印（因为 let 是有块级作用域的）
+  // const btns = document.getElementsByTagName("button");
+  // for (let i = 0; i < btns.length; i++) {
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+
+  // 方案二分析：let 是有块级作用域的，传入的都是当下的 i
+  // { i = 0;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // { i = 1;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // { i = 2;
+  //   btns[i].addEventListener("click", function () {
+  //     console.log("第" + i + "个按钮被点击了");
+  //   });
+  // }
+  //
+  // { i = 3;
+  //   // 不符合条件，不执行了
+  // }
+
+  // 3 const 修饰的标识符是常量（常量即指向的对象不能修改）
+  // 注意一: 在被赋值之后, 不能修改
+  // const a = 'aaa';
+  // name = 'bbb'; // 会报错
+
+  // 注意二: 必须被赋值
+  // const a; // 会报错
+
+  // 注意三: 可以改变对象内部的属性
+  const obj = {
+    name: "憨憨",
+    age: 18,
+    height: 1.6
+  };
+  console.log(obj);
+
+  obj.name = "傻傻";
+  obj.age = 12;
+  obj.height = 1.2;
+
+  console.log(obj);
+</script>
+
+</body>
+</html>

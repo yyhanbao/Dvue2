@@ -1,0 +1,12 @@
+export const INCREMENT = "INCREMENT";
+export const DECREMENT = "DECREMENT";
+export const ADD_COUNT = "ADD_COUNT";
+export const ADD_STUDENT = "ADD_STUDENT";
+export const UPDATE_INFO = "UPDATE_INFO";
+export const ADD_INFO = "ADD_INFO";
+export const REMOVE_INFO = "REMOVE_INFO";
+export const A_UPDATE_INFO = "A_UPDATE_INFO";
+export const A_ADD_COUNT = "A_ADD_COUNT";
+export const A_ADD_STUDENT = "A_ADD_STUDENT";
+export const UPDATE_NAME = "UPDATE_NAME";
+export const A_UPDATE_NAME = "A_UPDATE_NAME";

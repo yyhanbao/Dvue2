@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>slot 插槽基本使用</title>
+</head>
+<body>
+<div id="app">
+  <cpn19></cpn19>
+  <cpn19><span>嘿嘿嘿嘿嘿嘿嘿</span></cpn19>
+  <cpn19>
+    <i>憨憨</i>
+    <div>傻傻</div>
+    <p>憨傻</p>
+  </cpn19>
+</div>
+
+<template id="cpn19">
+  <div>
+    <h2>我是组件</h2>
+    <p>我是内容，哈哈哈哈哈哈</p>
+    <slot><button>按钮</button></slot>
+  </div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    components:{
+      cpn19:{
+        template:'#cpn19'
+      }
+    }
+  });
+</script>
+</body>
+</html>

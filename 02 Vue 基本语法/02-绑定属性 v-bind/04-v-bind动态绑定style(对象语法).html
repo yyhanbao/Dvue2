@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-bind 动态绑定 style（对象语法）</title>
+  <style>
+    .title {
+      font-size: 20px;
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <!--<h2 :style="{key(属性名): value(属性值)}">{{message}}</h2>-->
+
+  <!--属性值为常量，必须加引号-->
+  <h2 :style="{fontSize: '20px',backgroundColor:'green'}">{{message}}</h2>
+
+  <!--属性值为变量-->
+  <h2 class="title">{{message}}</h2>
+  <h2 :style="{fontSize: finalSize +'px',backgroundColor:finalColor}">{{message}}</h2>
+  <h2 :style="getStyles()">{{message}}</h2>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: "你好啊",
+      finalSize: 50,
+      finalColor: "lightblue"
+    },
+    methods: {
+      getStyles: function () {
+        return {fontSize: this.finalSize + "px", backgroundColor: this.finalColor};
+      }
+    }
+  });
+</script>
+</body>
+</html>

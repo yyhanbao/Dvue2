@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-on 基本使用</title>
+</head>
+<body>
+<div id="app">
+  <h2>{{counter}}</h2>
+  <!--1 表达式写法-->
+  <!--<button v-on:click="counter++">+</button>-->
+  <!--<button v-on:click="counter--">-</button>-->
+  <!--2 方法写法-->
+  <!--<button v-on:click="increment">+</button>-->
+  <!--<button v-on:click="decrement">-</button>-->
+  <!--2 语法糖写法-->
+  <button @click="increment">+</button>
+  <button @click="decrement">-</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      counter: 0
+    },
+    methods: {
+      increment() {
+        this.counter++;
+        console.log('counter++ 被执行了');
+      },
+      decrement() {
+        this.counter--;
+        console.log('counter-- 被执行了');
+      }
+    }
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for 遍历数组</title>
+</head>
+<body>
+<div id="app">
+  <!--1 在遍历过程中，没有用到索引值（下标值）-->
+  <ul>
+    <li v-for="item in letters">{{item}}</li>
+  </ul>
+
+  <!--2 在遍历过程中，需要获取索引值-->
+  <ul>
+    <li v-for="(item,index) in letters">{{index}} {{item}}</li>
+  </ul>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      letters: ["a", "b", "c", "d", "e", "f", "g"]
+    }
+  });
+</script>
+</body>
+</html>

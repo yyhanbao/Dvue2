@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-for 添加 key 的情况</title>
+</head>
+<body>
+<div id="app">
+  <ul>
+    <li v-for="item in letters" :key="item">{{item}}</li>
+    <!--Vue 推荐在使用 v-for 的时候，搭配使用 key 的原因如下-->
+
+    <!--使用 key 之前，Vue 的做法：性能低下-->
+    <!--插入元素前，虚拟 DOM 中类似如下-->
+    <!--<li1>a</li1>-->
+    <!--<li2>b</li2>-->
+    <!--<li3>c</li3>-->
+    <!--<li4>d</li4>-->
+    <!--插入元素后，虚拟 DOM 中类似如下-->
+    <!--<li1>a</li1>-->
+    <!--<li2>b</li2>-->
+    <!--<li3>憨憨</li3>-->
+    <!--<li4>c</li4>-->
+    <!--<li5>d</li5>-->
+
+    <!--使用 key 之后，Vue 的做法：性能高效-->
+    <!--插入元素前，虚拟 DOM 中类似如下-->
+    <!--<li key="a">a</li>-->
+    <!--<li key="b">b</li>-->
+    <!--<li key="c">c</li>-->
+    <!--<li key="d">d</li>-->
+    <!--插入元素后，虚拟 DOM 中类似如下-->
+    <!--<li key="a">a</li>-->
+    <!--<li key="b">b</li>-->
+    <!--<li key="憨憨">憨憨</li>-->
+    <!--<li key="c">c</li>-->
+    <!--<li key="d">d</li>-->
+  </ul>
+  <button @click="btnClick">插入元素</button>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      letters: ["a", "b", "c", "d"]
+    },
+    methods: {
+      btnClick() {
+        this.letters.splice(1, 0, "憨憨");
+      }
+    }
+  });
+</script>
+</body>
+</html>

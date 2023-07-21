@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>验证子组件中数据存放位置</title>
+</head>
+<body>
+<div id="app">
+<cpn9></cpn9>
+</div>
+
+<template id="cpn9">
+  <div>
+    <h2>{{title}}</h2>
+    <p>我是内容，嘿嘿嘿嘿嘿嘿嘿嘿</p>
+  </div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  Vue.component('cpn9',{
+    template:'#cpn9',
+    data(){
+      // 存放在子组件内的 data 属性里，这个 data 属性必须是一个函数，且函数返回一个对象
+      return{
+        title:"我是标题傻傻"
+      }
+    }
+  })
+
+  const app = new Vue({
+    // 并非存放在父组件（顶层Vue 实例）中
+    el: "#app",
+    data: {
+      title: "我是标题憨憨"
+    }
+  });
+</script>
+</body>
+</html>

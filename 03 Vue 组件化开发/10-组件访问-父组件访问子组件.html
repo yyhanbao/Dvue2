@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>组件访问：父组件访问子组件</title>
+</head>
+<body>
+<div id="app">
+  <cpn17 ref="aaa"></cpn17>
+  <button @click="btnClick">按钮</button>
+</div>
+
+<template id="cpn17">
+  <div>我是子组件</div>
+</template>
+
+<script src="./js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    methods: {
+      btnClick() {
+        // 1 使用 $children 访问子组件，返回数组类型
+        // console.log(this.$children);
+        // console.log(this.$children[0].name);
+        // console.log(this.$children[0].showMessage());
+        // for(let c of this.$children){
+        //   console.log(c.name);
+        //   console.log(c.showMessage());
+        // }
+
+        // 2 使用 $refs 访问子组件，返回对象类型
+        console.log(this.$refs);
+        console.log(this.$refs.aaa.name);
+        console.log(this.$refs.aaa.showMessage());
+      }
+    },
+    components: {
+      cpn17: {
+        template: "#cpn17",
+        data() {
+          return {
+            name: "我是子组件的 name"
+          };
+        },
+        methods: {
+          showMessage() {
+            console.log("我是 showMessage");
+          }
+        }
+      }
+    }
+  });
+</script>
+</body>
+</html>

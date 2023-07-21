@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>v-on 的修饰符</title>
+</head>
+<body>
+<div id="app">
+  <!--  1 .stop 修饰符-->
+  <div @click="divClick">
+    {{message}}
+    <button @click.stop="btn1Click">按钮 1</button>
+  </div>
+  <br>
+
+  <!--  2 .prevent 修饰符-->
+  <form action="baidu">
+    <input type="submit" value="提交" @click.prevent="submitClick">
+  </form>
+  <br>
+
+  <!--  3 监听某个键盘的键帽-->
+  <input type="text" @keyup.enter="KeyUp">
+  <br>
+
+  <!--  4 .once 修饰符-->
+  <button @click.once="btn2Click">按钮 2</button>
+
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      message: "你好啊"
+    },
+    methods: {
+      divClick() {
+        console.log("div 被点击了");
+      },
+      btn1Click() {
+        console.log("按钮 1 被点击后，停止冒泡，不触发 div 点击事件");
+      },
+      submitClick() {
+        console.log("阻止默认提交这一行为");
+      },
+      KeyUp() {
+        console.log("点击了键盘的 enter 键帽才会触发");
+      },
+      btn2Click() {
+        console.log("点击按钮 2 只会触发一次回调");
+      }
+    }
+  });
+</script>
+</body>
+</html>

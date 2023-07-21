@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>补充：高阶函数</title>
+</head>
+<body>
+<div id="app">
+  <h2>原数据展示：{{nums}}</h2>
+
+  <!--需求一：取出所有小于 100 的数字-->
+  <h2>需求一展示：{{newNums1}}</h2>
+
+  <!--需求二：将所有小于 100 的数字 *2-->
+  <h2>需求二展示：{{newNums2}}</h2>
+
+  <!--需求三：将需求二所得结果相加，得到最终结果-->
+  <h2>需求三展示：{{total}}</h2>
+
+  <h1>一步到位展示最终结果：{{total1}}</h1>
+</div>
+
+<script src="../js/vue.js"></script>
+<script>
+  const app = new Vue({
+    el: "#app",
+    data: {
+      nums: [10, 20, 111, 80, 299, 50, 166, 30]
+    },
+    computed: {
+      newNums1() {
+        // let newNums1 = [];
+        // for (let n of this.nums) {
+        //   if (n < 100) {
+        //     newNums1.push(n);
+        //   }
+        // }
+
+        // 1 使用 filter 函数 代替上述写法
+        // let newNums1 = this.nums.filter(function (n) {
+        //   return n < 100;
+        // 说明：filter 中的回调函数必须返回一个 boolean 值；为 true 时加入 n，为 false 时过滤掉 n
+        // });
+
+        // 可简写为：
+        let newNums1 = this.nums.filter(n => n < 100);
+        return newNums1;
+      },
+      newNums2() {
+        // let newNums2 = [];
+        // for (let n of this.newNums1) {
+        //   newNums2.push(n * 2);
+        // }
+
+        // 2 使用 map 函数 代替上述写法
+        // let newNums2 = this.newNums1.map(function (n) {
+        //   return n * 2;
+        // });
+
+        // 可简写为：
+        let newNums2 = this.newNums1.map(n => n * 2);
+        return newNums2;
+      },
+      total() {
+        // let total = 0;
+        // for (let n of this.newNums2) {
+        //   total += n;
+        // }
+        // 3 使用 reduce 函数 代替上述写法
+        // let total = this.newNums2.reduce(function (preValue, n) {
+        //   return preValue + n;
+        // });
+
+        // 可简写为：
+        let total = this.newNums2.reduce((preValue, n) => preValue + n);
+        return total;
+      },
+      total1() {
+        let total1 = this.nums.filter(n => n < 100).map(n => n * 2).reduce((preValue, n) => preValue + n);
+        return total1;
+      }
+    }
+  });
+</script>
+</body>
+</html>
